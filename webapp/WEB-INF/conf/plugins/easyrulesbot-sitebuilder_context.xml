@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" >
+
+
+    <!-- Response processor -->
+    <bean id="easyrulesbot.processor.inputString" class="fr.paris.lutece.plugins.easyrulesbot.service.response.processors.InputStringResponseProcessor" />
+    <bean id="easyrulesbot.processor.yesNo" class="fr.paris.lutece.plugins.easyrulesbot.service.response.processors.MultipleValuesResponseProcessor" >
+        <property name="valueTermsMap">
+            <map>
+                <entry key="true">
+                    <list>
+                        <value>oui</value>
+                        <value>yes</value>
+                        <value>yeah</value>
+                        <value>ok</value>
+                        <value>ouai</value>
+                        <value>evidemment</value>
+                        <value>évidemment</value>
+                        <value>bien sur</value>
+                        <value>bien sûr</value>
+                        <value>of course</value>
+                        <value>affirmatif</value>
+                        <value>avec plaisir</value>
+                    </list>
+                </entry>
+                <entry key="false">
+                    <list>
+                        <value>non</value>
+                        <value>sans façon</value>
+                        <value>négatif</value>
+                        <value>negatif</value>
+                        <value>pas la peine</value>
+                        <value>no way</value>
+                    </list>
+                </entry>
+            </map>
+        </property>
+        <property name="invalidResponseMessageI18nKey">
+            <value>module.easyrulesbot.sitebuilder.processor.yesno.invalidResponse</value>
+        </property>
+    </bean>
+        
+    <bean id="easyrulesbot.processor.mylutecemodule" class="fr.paris.lutece.plugins.easyrulesbot.service.response.processors.MultipleValuesResponseProcessor" >
+        <property name="valueTermsMap">
+            <map>
+                <entry key="database">
+                    <list>
+                        <value>1</value>
+                    </list>
+                </entry>
+                <entry key="openam">
+                    <list>
+                        <value>2</value>
+                    </list>
+                </entry>
+                <entry key="cas">
+                    <list>
+                        <value>3</value>
+                    </list>
+                </entry>
+            </map>
+        </property>
+        <property name="invalidResponseMessageI18nKey">
+            <value>module.easyrulesbot.sitebuilder.processor.mylutecemodule.invalidResponse</value>
+        </property>
+    </bean>
+    
+    <bean id="easyrulesbot.filter.profanity" class="fr.paris.lutece.plugins.easyrulesbot.service.response.filters.StopOnWordFilter" >
+        <property name="listStopWords">
+            <list>
+                <value>merde</value>
+                <value>putain</value>
+                <value>connard</value>
+            </list>
+        </property>
+        <property name="message">
+            <value>Euh ! Veuillez rester poli SVP.</value>
+        </property>
+    </bean>
+        
+    <!-- Conditions -->
+    <bean id="easyrulesbot.condition.undefinedDataKey" class="fr.paris.lutece.plugins.easyrulesbot.business.rules.conditions.RuleDataKeyExistsCondition"/>
+    <bean id="easyrulesbot.condition.mylutece" class="fr.paris.lutece.plugins.easyrulesbot.business.rules.conditions.DataValueCondition">
+        <property name="dataKey">
+            <value>mylutece</value>
+        </property>
+        <property name="dataValue">
+            <value>true</value>
+        </property>
+    </bean>
+    <bean id="easyrulesbot.condition.avatar" class="fr.paris.lutece.plugins.easyrulesbot.business.rules.conditions.DataValueCondition">
+        <property name="dataKey">
+            <value>avatar</value>
+        </property>
+        <property name="dataValue">
+            <value>true</value>
+        </property>
+    </bean>
+    
+    <!-- Rules -->
+    <bean id="easyrulesbot.rule.greetings" class="fr.paris.lutece.plugins.easyrulesbot.business.rules.BotRule" >
+        <property name="name">
+            <value>greetings</value>
+        </property>    
+        <property name="priority">
+            <value>0</value>
+        </property>    
+        <property name="description">
+            <value>Greetings</value>
+        </property>    
+        <property name="questionTemplateI18nKey">
+            <value>module.easyrulesbot.sitebuilder.rule.greetings.question</value>
+        </property>    
+        <property name="dataKey">
+            <value>username</value>
+        </property>    
+        <property name="responseProcessor">
+            <ref bean="easyrulesbot.processor.inputString" />
+        </property>
+        <property name="listConditions">
+            <list>
+                <ref bean="easyrulesbot.condition.undefinedDataKey" />
+            </list>
+        </property>
+        <property name="responseCommentTemplateI18nKey">
+            <value>module.easyrulesbot.sitebuilder.rule.greetings.responseComment</value>
+        </property>
+    </bean>
+
+        
+    <bean id="easyrulesbot.rule.mylutece" class="fr.paris.lutece.plugins.easyrulesbot.business.rules.BotRule" >
+        <property name="name">
+            <value>mylutece</value>
+        </property>    
+        <property name="priority">
+            <value>10</value>
+        </property>    
+        <property name="description">
+            <value>Check for front authentication</value>
+        </property>    
+        <property name="questionTemplateI18nKey">
+            <value>module.easyrulesbot.sitebuilder.rule.mylutece.question</value>
+        </property>    
+        <property name="dataKey">
+            <value>mylutece</value>
+        </property>    
+        <property name="responseProcessor">
+            <ref bean="easyrulesbot.processor.yesNo" />
+        </property>
+        <property name="listConditions">
+            <list>
+                <ref bean="easyrulesbot.condition.undefinedDataKey" />
+            </list>
+        </property>
+        <property name="responseCommentTemplateI18nKey">
+            <value>module.easyrulesbot.sitebuilder.rule.mylutece.responseComment</value>
+        </property>
+    </bean>
+    
+    <bean id="easyrulesbot.rule.mylutecemodule" class="fr.paris.lutece.plugins.easyrulesbot.business.rules.BotRule" >
+        <property name="name">
+            <value>mylutecemodule</value>
+        </property>    
+        <property name="priority">
+            <value>11</value>
+        </property>    
+        <property name="description">
+            <value>Choose authentication module</value>
+        </property>    
+        <property name="questionTemplateI18nKey">
+            <value>module.easyrulesbot.sitebuilder.rule.mylutecemodule.question</value>
+        </property>    
+        <property name="dataKey">
+            <value>mylutecemodule</value>
+        </property>    
+        <property name="responseProcessor">
+            <ref bean="easyrulesbot.processor.mylutecemodule" />
+        </property>
+        <property name="listConditions">
+            <list>
+                <ref bean="easyrulesbot.condition.undefinedDataKey" />
+                <ref bean="easyrulesbot.condition.mylutece" />
+            </list>
+        </property>
+        <property name="responseCommentTemplateI18nKey">
+            <value>module.easyrulesbot.sitebuilder.rule.mylutecemodule.responseComment</value>
+        </property>
+    </bean>
+    
+    <bean id="easyrulesbot.rule.avatar" class="fr.paris.lutece.plugins.easyrulesbot.business.rules.BotRule" >
+        <property name="name">
+            <value>avatar</value>
+        </property>    
+        <property name="priority">
+            <value>20</value>
+        </property>    
+        <property name="description">
+            <value>Check for Avatar</value>
+        </property>    
+        <property name="questionTemplateI18nKey">
+            <value>module.easyrulesbot.sitebuilder.rule.avatar.question</value>
+        </property>    
+        <property name="dataKey">
+            <value>avatar</value>
+        </property>    
+        <property name="responseProcessor">
+            <ref bean="easyrulesbot.processor.yesNo" />
+        </property>
+        <property name="listConditions">
+            <list>
+                <ref bean="easyrulesbot.condition.undefinedDataKey" />
+            </list>
+        </property>
+        <!--
+        <property name="responseCommentTemplate">
+            <value><![CDATA[<#if avatar="true">Excellent choix {username} !</#if>]]></value>
+        </property>
+        -->
+        <property name="responseCommentTemplateI18nKey">
+            <value>module.easyrulesbot.sitebuilder.rule.avatar.responseComment</value>
+        </property>
+    </bean>
+
+    <bean id="easyrulesbot.rule.avatarServer" class="fr.paris.lutece.plugins.easyrulesbot.business.rules.BotRule" >
+        <property name="name">
+            <value>avatarserver</value>
+        </property>    
+        <property name="priority">
+            <value>21</value>
+        </property>    
+        <property name="description">
+            <value>Check for Avatar Server</value>
+        </property>    
+        <property name="questionTemplateI18nKey">
+            <value>module.easyrulesbot.sitebuilder.rule.avatarserver.question</value>
+        </property>    
+        <property name="dataKey">
+            <value>avatarserver</value>
+        </property>    
+        <property name="responseProcessor">
+            <ref bean="easyrulesbot.processor.yesNo" />
+        </property>
+        <property name="listConditions">
+            <list>
+                <ref bean="easyrulesbot.condition.undefinedDataKey" />
+                <ref bean="easyrulesbot.condition.avatar" />
+            </list>
+        </property>
+    </bean>
+    
+    <!-- Rule engine -->
+    <bean id="easyrulesbot.engine.siteBuilder" class="org.easyrules.spring.RulesEngineFactoryBean">
+        <property name="skipOnFirstAppliedRule" value="true"/>
+        <property name="skipOnFirstFailedRule" value="true"/>
+        <property name="priorityThreshold" value="100"/>
+        <property name="silentMode" value="false"/>
+        <property name="rules">
+            <list>
+                <ref bean="easyrulesbot.rule.greetings"/>
+                <ref bean="easyrulesbot.rule.mylutece"/>
+                <ref bean="easyrulesbot.rule.mylutecemodule"/>
+                <ref bean="easyrulesbot.rule.avatar"/>
+                <ref bean="easyrulesbot.rule.avatarServer"/>
+            </list>
+        </property>
+        <property name="ruleListeners">
+            <list>
+            </list>
+        </property>
+    </bean>
+    <!-- Bot -->
+    <bean id="easyrulesbot.bot.siteBuilder" class="fr.paris.lutece.plugins.easyrulesbot.business.Bot">
+        <property name="key">
+            <value>lutecesitebuilder</value>
+        </property>
+        <property name="nameI18nKey">
+            <value>module.easyrulesbot.sitebuilder.bot.lutecesitebuilder.name</value>
+        </property>
+        <property name="descriptionI18nKey">
+            <value>module.easyrulesbot.sitebuilder.bot.lutecesitebuilder.description</value>
+        </property>
+        <property name="rulesEngine">
+            <ref bean="easyrulesbot.engine.siteBuilder" />
+        </property>
+        <property name="listResponseFilters">
+            <list>
+                <ref bean="easyrulesbot.filter.profanity"/>
+            </list>
+        </property>
+        <property name="listAvailableLanguages">
+            <list>
+                <value>en</value>
+                <value>fr</value>
+            </list>
+        </property>
+    </bean>
+    
+</beans>
