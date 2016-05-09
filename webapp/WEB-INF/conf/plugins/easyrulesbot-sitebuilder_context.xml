@@ -272,7 +272,7 @@
         </property>
     </bean>
     <!-- Bot -->
-    <bean id="easyrulesbot.bot.siteBuilder" class="fr.paris.lutece.plugins.easyrulesbot.business.Bot">
+    <bean id="easyrulesbot.bot.siteBuilder" class="fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.business.SiteBuilderBot">
         <property name="key">
             <value>lutecesitebuilder</value>
         </property>
