@@ -31,50 +31,14 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.business;
-
-import fr.paris.lutece.plugins.easyrulesbot.business.Bot;
-import fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.Constants;
-import fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.service.PomBuilder;
-import fr.paris.lutece.portal.service.i18n.I18nService;
-
-import java.util.Locale;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+package fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder;
 
 
 /**
- * SiteBuilder Bot
+ *
+ * @author pierre
  */
-public class SiteBuilderBot extends Bot
+public class Constants
 {
-    private static final String PROPERTY_LAST_MESSAGE = "module.easyrulesbot.sitebuilder.lastMessage";
-    private static final long serialVersionUID = 1L;
-    private PomBuilder _pomBuilder;
-
-    /**
-     * Set the pom builder
-     * @param pomBuilder The pom builder
-     */
-    public void setPomBuilder( PomBuilder pomBuilder )
-    {
-        _pomBuilder = pomBuilder;
-    }
-
-    /**
-     * {@inheritDoc }
-     */
-    @Override
-    public String processData( HttpServletRequest request, Map<String, String> mapData, Locale locale )
-    {
-        String strPom = _pomBuilder.buildPom( mapData );
-        HttpSession session = request.getSession( true );
-        session.setAttribute( Constants.SESSION_ATTRIBUTE_POM, strPom );
-
-        String strMessage = I18nService.getLocalizedString( PROPERTY_LAST_MESSAGE, locale );
-
-        return strMessage;
-    }
+    public static final String SESSION_ATTRIBUTE_POM = "sitebuilder-pom";
 }

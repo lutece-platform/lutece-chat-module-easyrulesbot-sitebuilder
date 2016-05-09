@@ -31,23 +31,23 @@
  *
  * License 1.0
  */
-
-
 package fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.service;
 
 import fr.paris.lutece.portal.service.util.AppLogService;
 import fr.paris.lutece.util.httpaccess.HttpAccess;
 import fr.paris.lutece.util.httpaccess.HttpAccessException;
+
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
+
 
 /**
  * VersionService
  */
-class VersionService 
+class VersionService
 {
     private static final String URL = "http://dev.lutece.paris.fr/incubator/rest/lutecetools/component/";
-    
+
     /**
      * Get the version from an artifact ID
      * @param strArtifactId The artifact ID
@@ -56,21 +56,24 @@ class VersionService
     public static String getVersion( String strArtifactId )
     {
         String strUrl = URL + strArtifactId + "?format=json";
-        HttpAccess httpAccess = new HttpAccess();
+        HttpAccess httpAccess = new HttpAccess(  );
         String strVersion;
         String strJson;
+
         try
         {
             strJson = httpAccess.doGet( strUrl );
+
             JSONObject json = (JSONObject) JSONSerializer.toJSON( strJson );
             JSONObject jsonComponent = json.getJSONObject( "component" );
             strVersion = jsonComponent.getString( "version" );
         }
-        catch( HttpAccessException ex )
+        catch ( HttpAccessException ex )
         {
-            AppLogService.error( "Error getting component version : " + ex.getMessage(), ex );
+            AppLogService.error( "Error getting component version : " + ex.getMessage(  ), ex );
             strVersion = "Not available";
         }
+
         return strVersion;
     }
 }

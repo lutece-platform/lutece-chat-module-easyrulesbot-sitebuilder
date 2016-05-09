@@ -31,50 +31,48 @@
  *
  * License 1.0
  */
-
-
 package fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.business;
+
 
 /**
  * Component
  */
-public class Component 
+public class Component
 {
     private String _strArtifactId;
     private String _strVersion;
-    
-    
-       /**
-        * Returns the ArtifactId
-        * @return The ArtifactId
-        */ 
-    public String getArtifactId()
+
+    /**
+     * Returns the ArtifactId
+     * @return The ArtifactId
+     */
+    public String getArtifactId(  )
     {
         return _strArtifactId;
     }
-    
-       /**
-        * Sets the ArtifactId
-        * @param strArtifactId The ArtifactId
-        */ 
+
+    /**
+     * Sets the ArtifactId
+     * @param strArtifactId The ArtifactId
+     */
     public void setArtifactId( String strArtifactId )
     {
         _strArtifactId = strArtifactId;
     }
-    
-       /**
-        * Returns the Version
-        * @return The Version
-        */ 
-    public String getVersion()
+
+    /**
+     * Returns the Version
+     * @return The Version
+     */
+    public String getVersion(  )
     {
         return _strVersion;
     }
-    
-       /**
-        * Sets the Version
-        * @param strVersion The Version
-        */ 
+
+    /**
+     * Sets the Version
+     * @param strVersion The Version
+     */
     public void setVersion( String strVersion )
     {
         _strVersion = strVersion;

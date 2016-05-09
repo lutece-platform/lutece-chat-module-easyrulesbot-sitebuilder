@@ -31,50 +31,54 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.business;
+package fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.web;
 
-import fr.paris.lutece.plugins.easyrulesbot.business.Bot;
 import fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.Constants;
-import fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.service.PomBuilder;
-import fr.paris.lutece.portal.service.i18n.I18nService;
 
-import java.util.Locale;
-import java.util.Map;
+import java.io.IOException;
 
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
 /**
- * SiteBuilder Bot
+ * PomServlet provides the content of the pom.xml file
  */
-public class SiteBuilderBot extends Bot
+public class PomServlet extends HttpServlet
 {
-    private static final String PROPERTY_LAST_MESSAGE = "module.easyrulesbot.sitebuilder.lastMessage";
     private static final long serialVersionUID = 1L;
-    private PomBuilder _pomBuilder;
 
     /**
-     * Set the pom builder
-     * @param pomBuilder The pom builder
-     */
-    public void setPomBuilder( PomBuilder pomBuilder )
-    {
-        _pomBuilder = pomBuilder;
-    }
-
-    /**
-     * {@inheritDoc }
+     * {@docRoot }
      */
     @Override
-    public String processData( HttpServletRequest request, Map<String, String> mapData, Locale locale )
+    protected void service( HttpServletRequest request, HttpServletResponse response )
+        throws ServletException, IOException
     {
-        String strPom = _pomBuilder.buildPom( mapData );
-        HttpSession session = request.getSession( true );
-        session.setAttribute( Constants.SESSION_ATTRIBUTE_POM, strPom );
+        String strOutput = "Session expired - no pom.xml available!";
+        String strContentType = "text/plain";
+        HttpSession session = request.getSession(  );
 
-        String strMessage = I18nService.getLocalizedString( PROPERTY_LAST_MESSAGE, locale );
+        if ( session != null )
+        {
+            String strPom = (String) session.getAttribute( Constants.SESSION_ATTRIBUTE_POM );
 
-        return strMessage;
+            if ( strPom != null )
+            {
+                strOutput = strPom;
+                strContentType = "application/xml";
+            }
+        }
+
+        response.setContentType( strContentType );
+
+        ServletOutputStream out = response.getOutputStream(  );
+        out.print( strOutput );
+        out.flush(  );
+        out.close(  );
     }
 }

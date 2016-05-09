@@ -31,31 +31,38 @@
  *
  * License 1.0
  */
-
-
 package fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.service;
 
 import fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.business.Component;
+import fr.paris.lutece.portal.service.template.AppTemplateService;
+import fr.paris.lutece.portal.web.l10n.LocaleService;
+import fr.paris.lutece.util.html.HtmlTemplate;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+
 
 /**
  * PomBuilder
  */
-public class PomBuilder 
+public class PomBuilder
 {
-    private static Map<String,String> _mapMapping;
+    private static final String TEMPLATE_POM_FILE = "skin/plugins/easyrulesbot/modules/sitebuilder/pom.xml";
+    private static final String MARK_COMPONENTS_LIST = "components_list";
+    private static Map<String, String> _mapMapping;
 
     /**
      * Set the mapping between bot data and artifact
-     * @param mapMapping The mapping between bot data and artifact 
-     */    
-    public void setMapping( Map<String,String> mapMapping )
+     * @param mapMapping The mapping between bot data and artifact
+     */
+    public void setMapping( Map<String, String> mapMapping )
     {
         _mapMapping = mapMapping;
     }
-    
+
     /**
      * Gets the component list
      * @param mapData the data provided by the bot
@@ -63,14 +70,15 @@ public class PomBuilder
      */
     public static List<Component> getComponents( Map<String, String> mapData )
     {
-        List<Component> list = new ArrayList<Component>();
-        for( String strKey : _mapMapping.keySet() )
+        List<Component> list = new ArrayList<Component>(  );
+
+        for ( String strKey : _mapMapping.keySet(  ) )
         {
-            if( mapData.containsKey( strKey ))
+            if ( mapData.containsKey( strKey ) )
             {
-                if( mapData.get( strKey ).equals( "true" ))
+                if ( mapData.get( strKey ).equals( "true" ) )
                 {
-                    Component component = new Component();
+                    Component component = new Component(  );
                     String strArtifactId = _mapMapping.get( strKey );
                     component.setArtifactId( strArtifactId );
                     component.setVersion( VersionService.getVersion( strArtifactId ) );
@@ -78,6 +86,17 @@ public class PomBuilder
                 }
             }
         }
+
         return list;
+    }
+
+    public String buildPom( Map<String, String> mapData )
+    {
+        Map<String, Object> model = new HashMap<String, Object>(  );
+        model.put( MARK_COMPONENTS_LIST, getComponents( mapData ) );
+
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_POM_FILE, LocaleService.getDefault(  ), model );
+
+        return template.getHtml(  );
     }
 }

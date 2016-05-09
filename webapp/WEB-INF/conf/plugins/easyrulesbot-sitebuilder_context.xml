@@ -271,6 +271,17 @@
             </list>
         </property>
     </bean>
+    
+    <bean id="easyrulesbot.pombuilder" class="fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.service.PomBuilder">
+        <property name="mapping">
+            <map>
+                <entry key="mylutece" value="plugin-mylutece" />
+                <entry key="avatar" value="plugin-avatar" />
+                <entry key="avatarserver" value="plugin-avatarserver" />
+            </map>
+        </property>
+    </bean>
+    
     <!-- Bot -->
     <bean id="easyrulesbot.bot.siteBuilder" class="fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.business.SiteBuilderBot">
         <property name="key">
@@ -296,6 +307,10 @@
                 <value>fr</value>
             </list>
         </property>
+        <property name="pomBuilder">
+            <ref bean="easyrulesbot.pombuilder"/>
+        </property>
     </bean>
+    
     
 </beans>

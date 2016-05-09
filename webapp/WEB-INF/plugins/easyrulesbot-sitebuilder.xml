@@ -19,5 +19,13 @@
         <max-core-version/>	
     </core-version-dependency>
 
+    <!-- servlets -->
+     <servlets>
+          <servlet>
+               <servlet-name>sitebuilder</servlet-name>
+               <url-pattern>/servlet/plugins/easyrulesbot/modules/sitebuilder/pom</url-pattern>
+               <servlet-class>fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.web.PomServlet</servlet-class>
+          </servlet>
+     </servlets>
 
 </plug-in>
