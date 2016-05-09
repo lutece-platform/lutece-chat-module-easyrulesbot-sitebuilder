@@ -74,9 +74,11 @@ public class PomBuilder
 
         for ( String strKey : _mapMapping.keySet(  ) )
         {
-            if ( mapData.containsKey( strKey ) )
+            for( String strDataKey : mapData.keySet() )
             {
-                if ( mapData.get( strKey ).equals( "true" ) )
+                String strData = strDataKey + ":" + mapData.get(strDataKey);
+            
+                if ( strData.equals( strKey ) )
                 {
                     Component component = new Component(  );
                     String strArtifactId = _mapMapping.get( strKey );

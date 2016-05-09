@@ -275,9 +275,12 @@
     <bean id="easyrulesbot.pombuilder" class="fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.service.PomBuilder">
         <property name="mapping">
             <map>
-                <entry key="mylutece" value="plugin-mylutece" />
-                <entry key="avatar" value="plugin-avatar" />
-                <entry key="avatarserver" value="plugin-avatarserver" />
+                <entry key="mylutece:true" value="plugin-mylutece" />
+                <entry key="mylutecemodule:database" value="module-mylutece-database" />
+                <entry key="mylutecemodule:openam" value="module-mylutece-openam" />
+                <entry key="mylutecemodule:cas" value="module-mylutece-cas" />
+                <entry key="avatar:true" value="plugin-avatar" />
+                <entry key="avatarserver:true" value="plugin-avatarserver" />
             </map>
         </property>
     </bean>
