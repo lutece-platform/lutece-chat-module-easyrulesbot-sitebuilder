@@ -68,6 +68,7 @@
         </property>
     </bean>
     
+    <!-- Filters -->
     <bean id="easyrulesbot.filter.profanity" class="fr.paris.lutece.plugins.easyrulesbot.service.response.filters.StopOnWordFilter" >
         <property name="listStopWords">
             <list>
@@ -78,6 +79,28 @@
         </property>
         <property name="message">
             <value>Euh ! Veuillez rester poli SVP.</value>
+        </property>
+    </bean>
+    <bean id="easyrulesbot.filter.thanksfull" class="fr.paris.lutece.plugins.easyrulesbot.service.response.filters.StopOnWordFilter" >
+        <property name="listStopWords">
+            <list>
+                <value>merci</value>
+            </list>
+        </property>
+        <property name="message">
+            <value>C'est mon plaisir !</value>
+        </property>
+    </bean>
+    <bean id="easyrulesbot.filter.laughing" class="fr.paris.lutece.plugins.easyrulesbot.service.response.filters.StopOnWordFilter" >
+        <property name="listStopWords">
+            <list>
+                <value>lol</value>
+                <value>mdr</value>
+                <value>ptdr</value>
+            </list>
+        </property>
+        <property name="message">
+            <value>J'aime beaucoup rire aussi !</value>
         </property>
     </bean>
         
@@ -302,6 +325,8 @@
         <property name="listResponseFilters">
             <list>
                 <ref bean="easyrulesbot.filter.profanity"/>
+                <ref bean="easyrulesbot.filter.thanksfull"/>
+                <ref bean="easyrulesbot.filter.laughing"/>
             </list>
         </property>
         <property name="listAvailableLanguages">
