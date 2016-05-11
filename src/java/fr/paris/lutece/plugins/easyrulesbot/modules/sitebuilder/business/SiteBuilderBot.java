@@ -37,6 +37,13 @@ import fr.paris.lutece.plugins.easyrulesbot.business.Bot;
 import fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.Constants;
 import fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.service.PomBuilder;
 import fr.paris.lutece.portal.service.i18n.I18nService;
+import fr.paris.lutece.portal.service.mail.MailService;
+import fr.paris.lutece.portal.service.template.AppTemplateService;
+import fr.paris.lutece.portal.web.l10n.LocaleService;
+import fr.paris.lutece.util.html.HtmlTemplate;
+import fr.paris.lutece.util.mail.FileAttachment;
+import java.util.ArrayList;
+import java.util.List;
 
 import java.util.Locale;
 import java.util.Map;
@@ -51,6 +58,10 @@ import javax.servlet.http.HttpSession;
 public class SiteBuilderBot extends Bot
 {
     private static final String PROPERTY_LAST_MESSAGE = "module.easyrulesbot.sitebuilder.lastMessage";
+    private static final String PROPERTY_MAIL_SENDER = "module.easyrulesbot.sitebuilder.mail.sender.name";
+    private static final String PROPERTY_MAIL_SENDER_EMAIL = "module.easyrulesbot.sitebuilder.mail.sender.email";
+    private static final String PROPERTY_MAIL_SUBJECT = "module.easyrulesbot.sitebuilder.mail.subject";
+    private static final String PROPERTY_MAIL_MESSAGE = "module.easyrulesbot.sitebuilder.mail.message";
     private static final long serialVersionUID = 1L;
     private PomBuilder _pomBuilder;
 
@@ -73,8 +84,35 @@ public class SiteBuilderBot extends Bot
         HttpSession session = request.getSession( true );
         session.setAttribute( Constants.SESSION_ATTRIBUTE_POM, strPom );
 
+        String strEmail = mapData.get( "email") ;
+        if( strEmail != null )
+        {
+            sendMail( strEmail , strPom , locale, mapData );
+        }
         String strMessage = I18nService.getLocalizedString( PROPERTY_LAST_MESSAGE, locale );
 
         return strMessage;
+    }
+
+    /**
+     * Send the pom.xml file by mail
+     * @param strRecipient The recipient
+     * @param strPom The POM content
+     * @param locale The locale
+     * @param mapData The data 
+     */
+    private void sendMail( String strRecipient, String strPom, Locale locale, Map<String, String> mapData )
+    {
+        String strSender = I18nService.getLocalizedString( PROPERTY_MAIL_SENDER, locale );
+        String strSenderEmail = I18nService.getLocalizedString( PROPERTY_MAIL_SENDER_EMAIL , locale );
+        String strSubject = I18nService.getLocalizedString( PROPERTY_MAIL_SUBJECT , locale );
+        String strMessageTemplate = I18nService.getLocalizedString( PROPERTY_MAIL_MESSAGE , locale );
+        HtmlTemplate template = AppTemplateService.getTemplateFromStringFtl( strMessageTemplate, LocaleService.getDefault(  ),
+                mapData );
+        String strMessage = template.getHtml();
+        FileAttachment file = new FileAttachment( "pom.xml" , strPom.getBytes(), "text/plain" );
+        List<FileAttachment> filesAttachement = new ArrayList<FileAttachment>();
+        filesAttachement.add( file );
+        MailService.sendMailMultipartHtml( strRecipient, null, null, strSender, strSenderEmail, strSubject, strMessage, null, filesAttachement );
     }
 }

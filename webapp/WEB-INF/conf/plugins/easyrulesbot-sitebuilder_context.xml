@@ -88,7 +88,7 @@
             </list>
         </property>
         <property name="message">
-            <value>C'est mon plaisir !</value>
+            <value>Je vous en prie !</value>
         </property>
     </bean>
     <bean id="easyrulesbot.filter.laughing" class="fr.paris.lutece.plugins.easyrulesbot.service.response.filters.StopOnWordFilter" >
@@ -117,6 +117,14 @@
     <bean id="easyrulesbot.condition.avatar" class="fr.paris.lutece.plugins.easyrulesbot.business.rules.conditions.DataValueCondition">
         <property name="dataKey">
             <value>avatar</value>
+        </property>
+        <property name="dataValue">
+            <value>true</value>
+        </property>
+    </bean>
+    <bean id="easyrulesbot.condition.sendByMail" class="fr.paris.lutece.plugins.easyrulesbot.business.rules.conditions.DataValueCondition">
+        <property name="dataKey">
+            <value>sendbymail</value>
         </property>
         <property name="dataValue">
             <value>true</value>
@@ -274,6 +282,59 @@
         </property>
     </bean>
     
+    <bean id="easyrulesbot.rule.sendByMail" class="fr.paris.lutece.plugins.easyrulesbot.business.rules.BotRule" >
+        <property name="name">
+            <value>sendbymail</value>
+        </property>    
+        <property name="priority">
+            <value>90</value>
+        </property>    
+        <property name="description">
+            <value>Ask for sending by mail</value>
+        </property>    
+        <property name="questionTemplateI18nKey">
+            <value>module.easyrulesbot.sitebuilder.rule.sendbymail.question</value>
+        </property>    
+        <property name="dataKey">
+            <value>sendbymail</value>
+        </property>    
+        <property name="responseProcessor">
+            <ref bean="easyrulesbot.processor.yesNo" />
+        </property>
+        <property name="listConditions">
+            <list>
+                <ref bean="easyrulesbot.condition.undefinedDataKey" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="easyrulesbot.rule.email" class="fr.paris.lutece.plugins.easyrulesbot.business.rules.BotRule" >
+        <property name="name">
+            <value>email</value>
+        </property>    
+        <property name="priority">
+            <value>91</value>
+        </property>    
+        <property name="description">
+            <value>Ask for an email</value>
+        </property>    
+        <property name="questionTemplateI18nKey">
+            <value>module.easyrulesbot.sitebuilder.rule.email.question</value>
+        </property>    
+        <property name="dataKey">
+            <value>email</value>
+        </property>    
+        <property name="responseProcessor">
+            <ref bean="easyrulesbot.processor.inputString" />
+        </property>
+        <property name="listConditions">
+            <list>
+                <ref bean="easyrulesbot.condition.undefinedDataKey" />
+                <ref bean="easyrulesbot.condition.sendByMail" />
+            </list>
+        </property>
+    </bean>
+    
     <!-- Rule engine -->
     <bean id="easyrulesbot.engine.siteBuilder" class="org.easyrules.spring.RulesEngineFactoryBean">
         <property name="skipOnFirstAppliedRule" value="true"/>
@@ -287,6 +348,8 @@
                 <ref bean="easyrulesbot.rule.mylutecemodule"/>
                 <ref bean="easyrulesbot.rule.avatar"/>
                 <ref bean="easyrulesbot.rule.avatarServer"/>
+                <ref bean="easyrulesbot.rule.sendByMail"/>
+                <ref bean="easyrulesbot.rule.email"/>
             </list>
         </property>
         <property name="ruleListeners">
