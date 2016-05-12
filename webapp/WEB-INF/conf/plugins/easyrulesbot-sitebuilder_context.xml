@@ -34,6 +34,8 @@
                         <value>of course</value>
                         <value>affirmatif</value>
                         <value>avec plaisir</value>
+                        <value>ouais</value>
+                        <value>oki<value>
                     </list>
                 </entry>
                 <entry key="false">
@@ -44,6 +46,8 @@
                         <value>negatif</value>
                         <value>pas la peine</value>
                         <value>no way</value>
+                        <value>nope</value>
+                        <value>no</value>
                     </list>
                 </entry>
             </map>
@@ -292,6 +296,32 @@
         </property>
     </bean>
     
+    <bean id="easyrulesbot.rule.form" class="fr.paris.lutece.plugins.easyrulesbot.business.rules.BotRule" >
+        <property name="name">
+            <value>form</value>
+        </property>    
+        <property name="priority">
+            <value>30</value>
+        </property>    
+        <property name="description">
+            <value>Ask for creating forms</value>
+        </property>    
+        <property name="questionTemplateI18nKey">
+            <value>module.easyrulesbot.sitebuilder.rule.form.question</value>
+        </property>    
+        <property name="dataKey">
+            <value>form</value>
+        </property>    
+        <property name="responseProcessor">
+            <ref bean="easyrulesbot.processor.yesNo" />
+        </property>
+        <property name="listConditions">
+            <list>
+                <ref bean="easyrulesbot.condition.undefinedDataKey" />
+            </list>
+        </property>
+    </bean>
+    
     <bean id="easyrulesbot.rule.sendByMail" class="fr.paris.lutece.plugins.easyrulesbot.business.rules.BotRule" >
         <property name="name">
             <value>sendbymail</value>
@@ -358,6 +388,7 @@
                 <ref bean="easyrulesbot.rule.mylutecemodule"/>
                 <ref bean="easyrulesbot.rule.avatar"/>
                 <ref bean="easyrulesbot.rule.avatarServer"/>
+                <ref bean="easyrulesbot.rule.form"/>
                 <ref bean="easyrulesbot.rule.sendByMail"/>
                 <ref bean="easyrulesbot.rule.email"/>
             </list>
@@ -377,6 +408,7 @@
                 <entry key="mylutecemodule:cas" value="module-mylutece-cas" />
                 <entry key="avatar:true" value="plugin-avatar" />
                 <entry key="avatarserver:true" value="plugin-avatarserver" />
+                <entry key="form:true" value="plugin-form" />
             </map>
         </property>
     </bean>
