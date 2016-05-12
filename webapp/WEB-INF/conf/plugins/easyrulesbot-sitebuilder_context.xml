@@ -7,6 +7,16 @@
 
     <!-- Response processor -->
     <bean id="easyrulesbot.processor.inputString" class="fr.paris.lutece.plugins.easyrulesbot.service.response.processors.InputStringResponseProcessor" />
+    
+    <bean id="easyrulesbot.processor.inputString.email" class="fr.paris.lutece.plugins.easyrulesbot.service.response.processors.InputStringResponseProcessor" >
+        <property name="standardPattern">
+            <value>email</value>
+        </property>
+        <property name="patternErrorMessageI18nKey">
+            <value>module.easyrulesbot.sitebuilder.message.invalidEmail</value>
+        </property>
+    </bean>
+
     <bean id="easyrulesbot.processor.yesNo" class="fr.paris.lutece.plugins.easyrulesbot.service.response.processors.MultipleValuesResponseProcessor" >
         <property name="valueTermsMap">
             <map>
@@ -325,7 +335,7 @@
             <value>email</value>
         </property>    
         <property name="responseProcessor">
-            <ref bean="easyrulesbot.processor.inputString" />
+            <ref bean="easyrulesbot.processor.inputString.email" />
         </property>
         <property name="listConditions">
             <list>
