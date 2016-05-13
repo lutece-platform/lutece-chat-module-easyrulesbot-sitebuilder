@@ -35,7 +35,7 @@
                         <value>affirmatif</value>
                         <value>avec plaisir</value>
                         <value>ouais</value>
-                        <value>oki<value>
+                        <value>oki</value>
                     </list>
                 </entry>
                 <entry key="false">
@@ -91,8 +91,15 @@
                 <value>connard</value>
             </list>
         </property>
-        <property name="message">
+        <property name="defaultMessage">
             <value>Euh ! Veuillez rester poli SVP.</value>
+        </property>
+        <property name="messageI18nKey">
+            <list>
+                <value>module.easyrulesbot.sitebuilder.filters.offend.offend1</value>
+                <value>module.easyrulesbot.sitebuilder.filters.offend.offend2</value>
+                <value>module.easyrulesbot.sitebuilder.filters.offend.offend3</value>
+            </list>
         </property>
     </bean>
     <bean id="easyrulesbot.filter.thanksfull" class="fr.paris.lutece.plugins.easyrulesbot.service.response.filters.StopOnWordFilter" >
@@ -101,8 +108,15 @@
                 <value>merci</value>
             </list>
         </property>
-        <property name="message">
+        <property name="defaultMessage">
             <value>Je vous en prie !</value>
+        </property>
+        <property name="messageI18nKey">
+            <list>
+                <value>module.easyrulesbot.sitebuilder.filters.thankful.thankful1</value>
+                <value>module.easyrulesbot.sitebuilder.filters.thankful.thankful2</value>
+                <value>module.easyrulesbot.sitebuilder.filters.thankful.thankful3</value>
+            </list>
         </property>
     </bean>
     <bean id="easyrulesbot.filter.laughing" class="fr.paris.lutece.plugins.easyrulesbot.service.response.filters.StopOnWordFilter" >
@@ -113,8 +127,15 @@
                 <value>ptdr</value>
             </list>
         </property>
-        <property name="message">
+        <property name="defaultMessage">
             <value>J'aime beaucoup rire aussi !</value>
+        </property>
+        <property name="messageI18nKey">
+            <list>
+                <value>module.easyrulesbot.sitebuilder.filters.laughful.laughful1</value>
+                <value>module.easyrulesbot.sitebuilder.filters.laughful.laughful2</value>
+                <value>module.easyrulesbot.sitebuilder.filters.laughful.laughful3</value>
+            </list>
         </property>
     </bean>
         
