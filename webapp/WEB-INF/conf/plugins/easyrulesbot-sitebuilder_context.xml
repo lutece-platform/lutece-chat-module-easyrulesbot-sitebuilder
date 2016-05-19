@@ -91,6 +91,9 @@
                 <value>connard</value>
             </list>
         </property>
+        <property name="stopWordsFile">
+            <value>/WEB-INF/plugins/easyrulesbot/modules/sitebuilder/profanity.txt</value>
+        </property>
         <property name="defaultMessage">
             <value>Euh ! Veuillez rester poli SVP.</value>
         </property>
