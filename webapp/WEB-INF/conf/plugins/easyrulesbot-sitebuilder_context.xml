@@ -184,7 +184,7 @@
             <value>module.easyrulesbot.sitebuilder.rule.greetings.question</value>
         </property>    
         <property name="dataKey">
-            <value>username</value>
+            <value>user_firstname</value>
         </property>    
         <property name="responseProcessor">
             <ref bean="easyrulesbot.processor.inputString" />
@@ -386,7 +386,7 @@
             <value>module.easyrulesbot.sitebuilder.rule.email.question</value>
         </property>    
         <property name="dataKey">
-            <value>email</value>
+            <value>user_email</value>
         </property>    
         <property name="responseProcessor">
             <ref bean="easyrulesbot.processor.inputString.email" />

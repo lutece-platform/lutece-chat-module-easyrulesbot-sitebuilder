@@ -34,6 +34,7 @@
 package fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.business;
 
 import fr.paris.lutece.plugins.easyrulesbot.business.Bot;
+import fr.paris.lutece.plugins.easyrulesbot.business.BotExecutor;
 import fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.Constants;
 import fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.service.PomBuilder;
 import fr.paris.lutece.portal.service.i18n.I18nService;
@@ -84,7 +85,7 @@ public class SiteBuilderBot extends Bot
         HttpSession session = request.getSession( true );
         session.setAttribute( Constants.SESSION_ATTRIBUTE_POM, strPom );
 
-        String strEmail = mapData.get( "email") ;
+        String strEmail = mapData.get( BotExecutor.DATA_USER_EMAIL ) ;
         if( strEmail != null )
         {
             sendMail( strEmail , strPom , locale, mapData );
