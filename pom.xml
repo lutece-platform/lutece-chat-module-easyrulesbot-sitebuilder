@@ -44,7 +44,7 @@
             <groupId>fr.paris.lutece.plugins</groupId>
             <artifactId>library-httpaccess</artifactId>
             <version>[2.3.0,)</version>
-            <type>lutece-plugin</type>
+            <type>jar</type>
        </dependency>
     </dependencies>
 
