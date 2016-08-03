@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<plug-in>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><plug-in>
     <name>easyrulesbot-sitebuilder</name>
     <class>fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation</class>
     <version>0.9.0</version>
-    <documentation></documentation>
-    <installation></installation>
-    <changes></changes>
-    <user-guide></user-guide>
+    <documentation/>
+    <installation/>
+    <changes/>
+    <user-guide/>
     <description>module.easyrulesbot.sitebuilder.plugin.description</description>
     <provider>module.easyrulesbot.sitebuilder.plugin.provider</provider>
     <provider-url>http://lutece.paris.fr</provider-url>
