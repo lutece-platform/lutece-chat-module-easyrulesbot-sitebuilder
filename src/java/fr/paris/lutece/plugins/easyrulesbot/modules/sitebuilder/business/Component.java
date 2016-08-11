@@ -33,7 +33,6 @@
  */
 package fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.business;
 
-
 /**
  * Component
  */
@@ -44,16 +43,19 @@ public class Component
 
     /**
      * Returns the ArtifactId
+     * 
      * @return The ArtifactId
      */
-    public String getArtifactId(  )
+    public String getArtifactId( )
     {
         return _strArtifactId;
     }
 
     /**
      * Sets the ArtifactId
-     * @param strArtifactId The ArtifactId
+     * 
+     * @param strArtifactId
+     *            The ArtifactId
      */
     public void setArtifactId( String strArtifactId )
     {
@@ -62,16 +64,19 @@ public class Component
 
     /**
      * Returns the Version
+     * 
      * @return The Version
      */
-    public String getVersion(  )
+    public String getVersion( )
     {
         return _strVersion;
     }
 
     /**
      * Sets the Version
-     * @param strVersion The Version
+     * 
+     * @param strVersion
+     *            The Version
      */
     public void setVersion( String strVersion )
     {

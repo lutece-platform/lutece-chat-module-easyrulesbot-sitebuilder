@@ -44,7 +44,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-
 /**
  * PomBuilder
  */
@@ -56,7 +55,9 @@ public class PomBuilder
 
     /**
      * Set the mapping between bot data and artifact
-     * @param mapMapping The mapping between bot data and artifact
+     * 
+     * @param mapMapping
+     *            The mapping between bot data and artifact
      */
     public void setMapping( Map<String, String> mapMapping )
     {
@@ -65,22 +66,24 @@ public class PomBuilder
 
     /**
      * Gets the component list
-     * @param mapData the data provided by the bot
+     * 
+     * @param mapData
+     *            the data provided by the bot
      * @return the component list
      */
     public static List<Component> getComponents( Map<String, String> mapData )
     {
-        List<Component> list = new ArrayList<Component>(  );
+        List<Component> list = new ArrayList<Component>( );
 
-        for ( String strKey : _mapMapping.keySet(  ) )
+        for ( String strKey : _mapMapping.keySet( ) )
         {
-            for( String strDataKey : mapData.keySet() )
+            for ( String strDataKey : mapData.keySet( ) )
             {
-                String strData = strDataKey + ":" + mapData.get(strDataKey);
-            
+                String strData = strDataKey + ":" + mapData.get( strDataKey );
+
                 if ( strData.equals( strKey ) )
                 {
-                    Component component = new Component(  );
+                    Component component = new Component( );
                     String strArtifactId = _mapMapping.get( strKey );
                     component.setArtifactId( strArtifactId );
                     component.setVersion( VersionService.getVersion( strArtifactId ) );
@@ -94,11 +97,11 @@ public class PomBuilder
 
     public String buildPom( Map<String, String> mapData )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = new HashMap<String, Object>( );
         model.put( MARK_COMPONENTS_LIST, getComponents( mapData ) );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_POM_FILE, LocaleService.getDefault(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_POM_FILE, LocaleService.getDefault( ), model );
 
-        return template.getHtml(  );
+        return template.getHtml( );
     }
 }

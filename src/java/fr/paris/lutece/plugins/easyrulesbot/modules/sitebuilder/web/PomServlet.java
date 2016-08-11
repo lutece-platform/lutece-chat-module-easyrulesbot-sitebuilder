@@ -44,7 +44,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 /**
  * PomServlet provides the content of the pom.xml file
  */
@@ -56,12 +55,11 @@ public class PomServlet extends HttpServlet
      * {@docRoot }
      */
     @Override
-    protected void service( HttpServletRequest request, HttpServletResponse response )
-        throws ServletException, IOException
+    protected void service( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException
     {
         String strOutput = "Session expired - no pom.xml available!";
         String strContentType = "text/plain";
-        HttpSession session = request.getSession(  );
+        HttpSession session = request.getSession( );
 
         if ( session != null )
         {
@@ -76,9 +74,9 @@ public class PomServlet extends HttpServlet
 
         response.setContentType( strContentType );
 
-        ServletOutputStream out = response.getOutputStream(  );
+        ServletOutputStream out = response.getOutputStream( );
         out.print( strOutput );
-        out.flush(  );
-        out.close(  );
+        out.flush( );
+        out.close( );
     }
 }

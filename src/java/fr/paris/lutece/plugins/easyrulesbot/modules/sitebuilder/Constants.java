@@ -33,7 +33,6 @@
  */
 package fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder;
 
-
 /**
  *
  * @author pierre

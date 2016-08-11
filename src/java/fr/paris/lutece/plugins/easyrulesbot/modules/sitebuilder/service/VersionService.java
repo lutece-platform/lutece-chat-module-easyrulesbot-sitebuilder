@@ -40,7 +40,6 @@ import fr.paris.lutece.util.httpaccess.HttpAccessException;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 
-
 /**
  * VersionService
  */
@@ -50,13 +49,15 @@ class VersionService
 
     /**
      * Get the version from an artifact ID
-     * @param strArtifactId The artifact ID
+     * 
+     * @param strArtifactId
+     *            The artifact ID
      * @return The version
      */
     public static String getVersion( String strArtifactId )
     {
         String strUrl = URL + strArtifactId + "?format=json";
-        HttpAccess httpAccess = new HttpAccess(  );
+        HttpAccess httpAccess = new HttpAccess( );
         String strVersion;
         String strJson;
 
@@ -68,9 +69,9 @@ class VersionService
             JSONObject jsonComponent = json.getJSONObject( "component" );
             strVersion = jsonComponent.getString( "version" );
         }
-        catch ( HttpAccessException ex )
+        catch( HttpAccessException ex )
         {
-            AppLogService.error( "Error getting component version : " + ex.getMessage(  ), ex );
+            AppLogService.error( "Error getting component version : " + ex.getMessage( ), ex );
             strVersion = "Not available";
         }
 

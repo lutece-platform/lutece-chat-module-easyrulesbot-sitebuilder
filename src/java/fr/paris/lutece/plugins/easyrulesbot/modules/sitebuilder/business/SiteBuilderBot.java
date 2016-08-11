@@ -52,7 +52,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-
 /**
  * SiteBuilder Bot
  */
@@ -68,7 +67,9 @@ public class SiteBuilderBot extends Bot
 
     /**
      * Set the pom builder
-     * @param pomBuilder The pom builder
+     * 
+     * @param pomBuilder
+     *            The pom builder
      */
     public void setPomBuilder( PomBuilder pomBuilder )
     {
@@ -85,10 +86,10 @@ public class SiteBuilderBot extends Bot
         HttpSession session = request.getSession( true );
         session.setAttribute( Constants.SESSION_ATTRIBUTE_POM, strPom );
 
-        String strEmail = mapData.get( BotExecutor.DATA_USER_EMAIL ) ;
-        if( strEmail != null )
+        String strEmail = mapData.get( BotExecutor.DATA_USER_EMAIL );
+        if ( strEmail != null )
         {
-            sendMail( strEmail , strPom , locale, mapData );
+            sendMail( strEmail, strPom, locale, mapData );
         }
         String strMessage = I18nService.getLocalizedString( PROPERTY_LAST_MESSAGE, locale );
 
@@ -97,22 +98,26 @@ public class SiteBuilderBot extends Bot
 
     /**
      * Send the pom.xml file by mail
-     * @param strRecipient The recipient
-     * @param strPom The POM content
-     * @param locale The locale
-     * @param mapData The data 
+     * 
+     * @param strRecipient
+     *            The recipient
+     * @param strPom
+     *            The POM content
+     * @param locale
+     *            The locale
+     * @param mapData
+     *            The data
      */
     private void sendMail( String strRecipient, String strPom, Locale locale, Map<String, String> mapData )
     {
         String strSender = I18nService.getLocalizedString( PROPERTY_MAIL_SENDER, locale );
-        String strSenderEmail = I18nService.getLocalizedString( PROPERTY_MAIL_SENDER_EMAIL , locale );
-        String strSubject = I18nService.getLocalizedString( PROPERTY_MAIL_SUBJECT , locale );
-        String strMessageTemplate = I18nService.getLocalizedString( PROPERTY_MAIL_MESSAGE , locale );
-        HtmlTemplate template = AppTemplateService.getTemplateFromStringFtl( strMessageTemplate, LocaleService.getDefault(  ),
-                mapData );
-        String strMessage = template.getHtml();
-        FileAttachment file = new FileAttachment( "pom.xml" , strPom.getBytes(), "text/plain" );
-        List<FileAttachment> filesAttachement = new ArrayList<FileAttachment>();
+        String strSenderEmail = I18nService.getLocalizedString( PROPERTY_MAIL_SENDER_EMAIL, locale );
+        String strSubject = I18nService.getLocalizedString( PROPERTY_MAIL_SUBJECT, locale );
+        String strMessageTemplate = I18nService.getLocalizedString( PROPERTY_MAIL_MESSAGE, locale );
+        HtmlTemplate template = AppTemplateService.getTemplateFromStringFtl( strMessageTemplate, LocaleService.getDefault( ), mapData );
+        String strMessage = template.getHtml( );
+        FileAttachment file = new FileAttachment( "pom.xml", strPom.getBytes( ), "text/plain" );
+        List<FileAttachment> filesAttachement = new ArrayList<FileAttachment>( );
         filesAttachement.add( file );
         MailService.sendMailMultipartHtml( strRecipient, null, null, strSender, strSenderEmail, strSubject, strMessage, null, filesAttachement );
     }
