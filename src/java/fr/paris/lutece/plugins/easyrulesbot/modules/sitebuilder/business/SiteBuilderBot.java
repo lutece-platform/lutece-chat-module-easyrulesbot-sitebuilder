@@ -40,6 +40,7 @@ import fr.paris.lutece.plugins.easyrulesbot.service.EasyRulesBot;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.mail.MailService;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
+import fr.paris.lutece.portal.web.LocalVariables;
 import fr.paris.lutece.portal.web.l10n.LocaleService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 import fr.paris.lutece.util.mail.FileAttachment;
@@ -80,9 +81,10 @@ public class SiteBuilderBot extends EasyRulesBot
      * {@inheritDoc }
      */
     @Override
-    public String processData( HttpServletRequest request, Map<String, String> mapData, Locale locale )
+    public String processData( Map<String, String> mapData, Locale locale )
     {
         String strPom = _pomBuilder.buildPom( mapData );
+        HttpServletRequest request = LocalVariables.getRequest();
         HttpSession session = request.getSession( true );
         session.setAttribute( Constants.SESSION_ATTRIBUTE_POM, strPom );
 
