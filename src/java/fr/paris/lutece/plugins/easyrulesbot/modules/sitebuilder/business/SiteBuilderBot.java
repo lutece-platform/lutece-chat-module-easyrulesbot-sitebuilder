@@ -33,10 +33,10 @@
  */
 package fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.business;
 
-import fr.paris.lutece.plugins.easyrulesbot.business.Bot;
 import fr.paris.lutece.plugins.easyrulesbot.business.BotExecutor;
 import fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.Constants;
 import fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.service.PomBuilder;
+import fr.paris.lutece.plugins.easyrulesbot.service.EasyRulesBot;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.mail.MailService;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
@@ -55,7 +55,7 @@ import javax.servlet.http.HttpSession;
 /**
  * SiteBuilder Bot
  */
-public class SiteBuilderBot extends Bot
+public class SiteBuilderBot extends EasyRulesBot
 {
     private static final String PROPERTY_LAST_MESSAGE = "module.easyrulesbot.sitebuilder.lastMessage";
     private static final String PROPERTY_MAIL_SENDER = "module.easyrulesbot.sitebuilder.mail.sender.name";
