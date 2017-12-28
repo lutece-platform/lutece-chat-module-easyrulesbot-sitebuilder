@@ -55,9 +55,9 @@
     </properties>
 
     <scm>
-        <connection>scm:git:https://github.com/lutece-platform/lutece-dev-module-easyrulesbot-sitebuilder.git</connection>
-        <developerConnection>scm:git:https://github.com/lutece-platform/lutece-dev-module-easyrulesbot-sitebuilder.git</developerConnection>
-        <url>https://github.com/lutece-platform/lutece-dev-module-easyrulesbot-sitebuilder.git</url>
+        <connection>scm:git:https://github.com/lutece-platform/lutece-chat-module-easyrulesbot-sitebuilder.git</connection>
+        <developerConnection>scm:git:https://github.com/lutece-platform/lutece-chat-module-easyrulesbot-sitebuilder.git</developerConnection>
+        <url>https://github.com/lutece-platform/lutece-chat-module-easyrulesbot-sitebuilder.git</url>
       <tag>HEAD</tag>
   </scm>
         
