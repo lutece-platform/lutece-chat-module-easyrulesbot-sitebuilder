@@ -85,7 +85,7 @@
         <property name="name" value="greetings" />
         <property name="priority" value="0" />
         <property name="description" value="Greetings" />
-        <property name="questionTemplateI18nKey" value="module.easyrulesbot.sitebuilder.rule.greetings.question" />
+        <property name="messageTemplateI18nKey" value="module.easyrulesbot.sitebuilder.rule.greetings.question" />
         <property name="dataKey" value="user_firstname" />
         <property name="responseProcessor" ref="easyrulesbot.processor.inputString" />
         <property name="listConditions">
@@ -101,7 +101,7 @@
         <property name="name" value="mylutece" />
         <property name="priority" value="10" />
         <property name="description" value="Check for front authentication" />
-        <property name="questionTemplateI18nKey" value="module.easyrulesbot.sitebuilder.rule.mylutece.question" />
+        <property name="messageTemplateI18nKey" value="module.easyrulesbot.sitebuilder.rule.mylutece.question" />
         <property name="dataKey" value="mylutece" />
         <property name="responseProcessor" ref="easyrulesbot.processor.yesNo" />
         <property name="listConditions">
@@ -116,7 +116,8 @@
         <property name="name" value="mylutecemodule" />
         <property name="priority" value="11" />
         <property name="description" value="Choose authentication module" />
-        <property name="questionTemplateI18nKey" value="module.easyrulesbot.sitebuilder.rule.mylutecemodule.question" />
+        <property name="messageType" value="buttons" />
+        <property name="messageTemplateI18nKey" value="module.easyrulesbot.sitebuilder.rule.mylutecemodule.question" />
         <property name="dataKey" value="mylutecemodule" />
         <property name="responseProcessor" ref="easyrulesbot.processor.mylutecemodule" />
         <property name="listConditions">
@@ -132,7 +133,7 @@
         <property name="name" value="avatar" />
         <property name="priority" value="20" />
         <property name="description" value="Check for Avatar" />
-        <property name="questionTemplateI18nKey" value="module.easyrulesbot.sitebuilder.rule.avatar.question" />
+        <property name="messageTemplateI18nKey" value="module.easyrulesbot.sitebuilder.rule.avatar.question" />
         <property name="dataKey" value="avatar" />
         <property name="responseProcessor" ref="easyrulesbot.processor.yesNo" />
         <property name="listConditions">
@@ -147,7 +148,7 @@
         <property name="name" value="avatarserver" />
         <property name="priority" value="21" />
         <property name="description" value="Check for Avatar Server" />
-        <property name="questionTemplateI18nKey" value="module.easyrulesbot.sitebuilder.rule.avatarserver.question" />
+        <property name="messageTemplateI18nKey" value="module.easyrulesbot.sitebuilder.rule.avatarserver.question" />
         <property name="dataKey" value="avatarserver" />
         <property name="responseProcessor" ref="easyrulesbot.processor.yesNo" />
         <property name="listConditions">
@@ -162,7 +163,7 @@
         <property name="name" value="form" />
         <property name="priority" value="30" />
         <property name="description" value="Ask for creating forms" />
-        <property name="questionTemplateI18nKey" value="module.easyrulesbot.sitebuilder.rule.form.question" />
+        <property name="messageTemplateI18nKey" value="module.easyrulesbot.sitebuilder.rule.form.question" />
         <property name="dataKey" value="form" />
         <property name="responseProcessor" ref="easyrulesbot.processor.yesNo" />
         <property name="listConditions">
@@ -176,7 +177,7 @@
         <property name="name" value="sendbymail" />
         <property name="priority" value="90" />
         <property name="description" value="Ask for sending by mail" />
-        <property name="questionTemplateI18nKey" value="module.easyrulesbot.sitebuilder.rule.sendbymail.question" />
+        <property name="messageTemplateI18nKey" value="module.easyrulesbot.sitebuilder.rule.sendbymail.question" />
         <property name="dataKey" value="sendbymail" />
         <property name="responseProcessor" ref="easyrulesbot.processor.yesNo" />
         <property name="listConditions">
@@ -190,7 +191,7 @@
         <property name="name" value="email" />
         <property name="priority" value="91" />
         <property name="description" value="Ask for an email" />
-        <property name="questionTemplateI18nKey" value="module.easyrulesbot.sitebuilder.rule.email.question" />
+        <property name="messageTemplateI18nKey" value="module.easyrulesbot.sitebuilder.rule.email.question" />
         <property name="dataKey" value="user_email" />
         <property name="responseProcessor" ref="easyrulesbot.processor.inputString.email" />
         <property name="listConditions">
