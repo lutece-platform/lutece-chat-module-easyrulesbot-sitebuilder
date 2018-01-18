@@ -5,21 +5,47 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" >
 
 
+    
+    <bean id="easyrulesbot.pombuilder" class="fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.service.PomBuilder">
+        <property name="mapping">
+            <map>
+                <entry key="mylutece:true" value="plugin-mylutece" />
+                <entry key="mylutecemodule:database" value="module-mylutece-database" />
+                <entry key="mylutecemodule:openam" value="module-mylutece-openam" />
+                <entry key="mylutecemodule:cas" value="module-mylutece-cas" />
+                <entry key="avatar:true" value="plugin-avatar" />
+                <entry key="avatarserver:true" value="plugin-avatarserver" />
+                <entry key="form:true" value="plugin-form" />
+            </map>
+        </property>
+    </bean>
+
+    
     <!-- #############        Default response processors        ###########-->
-    <bean id="easyrulesbot.processor.inputString" class="fr.paris.lutece.plugins.easyrulesbot.service.response.processors.InputStringResponseProcessor" />
+    <bean id="easyrulesbot.processor.inputString" class="fr.paris.lutece.plugins.easyrulesbot.service.response.processors.InputStringResponseProcessor" >
+        <property name="name" value="INPUT_STRING" />
+    </bean>
 
     <bean id="easyrulesbot.processor.inputString.email" class="fr.paris.lutece.plugins.easyrulesbot.service.response.processors.InputStringResponseProcessor" >
+        <property name="name" value="INPUT_EMAIL" />
         <property name="standardPattern" value="email" />
         <property name="patternErrorMessageI18nKey" value="module.easyrulesbot.sitebuilder.message.invalidEmail" />
     </bean>
 
     <bean id="easyrulesbot.processor.yesNo" class="fr.paris.lutece.plugins.easyrulesbot.service.response.processors.MultipleValuesResponseProcessor" >
+        <property name="name" value="YES_NO" />
         <property name="mutipleValuesMapFile" value="/WEB-INF/plugins/easyrulesbot/yesno.txt" />
         <property name="invalidResponseMessageI18nKey" value="module.easyrulesbot.sitebuilder.processor.yesno.invalidResponse" />
     </bean>
     
+    <bean id="easyrulesbot-sitebuilder.processor.buildPom" class="fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.service.PomBuilderProcessor">
+        <property name="name" value="BUILD_AND_SEND_POM" />
+        <property name="pomBuilder" ref="easyrulesbot.pombuilder"/>
+    </bean> 
+    
     <!-- ################         Filters         ##################### -->
     <bean id="easyrulesbot.filter.profanity" class="fr.paris.lutece.plugins.easyrulesbot.service.response.filters.StopOnWordFilter" >
+        <property name="name" value="INSULT" />
         <property name="mapLocaleStopWordsFile">
             <map>
                 <entry key="fr" value="/WEB-INF/plugins/easyrulesbot/profanity-words_fr.txt" />
@@ -33,6 +59,7 @@
     </bean>
     
     <bean id="easyrulesbot.filter.thanksful" class="fr.paris.lutece.plugins.easyrulesbot.service.response.filters.StopOnWordFilter" >
+        <property name="name" value="THANK" />
         <property name="listStopWords">
             <list>
                 <value>merci</value>
@@ -46,6 +73,7 @@
     </bean>
     
     <bean id="easyrulesbot.filter.laughing" class="fr.paris.lutece.plugins.easyrulesbot.service.response.filters.StopOnWordFilter" >
+        <property name="name" value="LAUGH" />
         <property name="listStopWords">
             <list>
                 <value>lol</value>
@@ -61,13 +89,17 @@
     </bean>
            
     <bean id="easyrulesbot.processor.mylutecemodule" class="fr.paris.lutece.plugins.easyrulesbot.service.response.processors.MultipleValuesResponseProcessor" >
+        <property name="name" value="MYLUTECE_MODULE" />
         <property name="mutipleValuesMapFile" value="/WEB-INF/plugins/easyrulesbot/modules/sitebuilder/mylutecemodule.txt" />
         <property name="invalidResponseMessageI18nKey" value="module.easyrulesbot.sitebuilder.processor.mylutecemodule.invalidResponse" />
     </bean>
         
     <!-- ###############       Conditions      ################ -->
-    <bean id="easyrulesbot.condition.undefinedDataKey" class="fr.paris.lutece.plugins.easyrulesbot.business.rules.conditions.RuleDataKeyExistsCondition"/>
+    <bean id="easyrulesbot.condition.undefinedDataKey" class="fr.paris.lutece.plugins.easyrulesbot.business.rules.conditions.RuleDataKeyExistsCondition">
+        <property name="name" value="UNDEFINED_DATA_KEY" />
+    </bean>    
     <bean id="easyrulesbot.condition.mylutece" class="fr.paris.lutece.plugins.easyrulesbot.business.rules.conditions.DataValueCondition">
+        <property name="name" value="MYLUTECE" />
         <property name="dataKey" value="mylutece" />
         <property name="dataValue" value="true" />
     </bean>
@@ -81,6 +113,7 @@
     </bean>
     
     <!-- #############            Rules           ############## -->
+    <!--
     <bean id="easyrulesbot.rule.greetings" class="fr.paris.lutece.plugins.easyrulesbot.business.rules.BotRule" >
         <property name="name" value="greetings" />
         <property name="priority" value="0" />
@@ -202,7 +235,10 @@
         </property>
     </bean>
     
+    -->
     <!-- #############          Rule engine        ############## -->
+    
+    <!--
     <bean id="easyrulesbot.engine.siteBuilder" class="org.easyrules.spring.RulesEngineFactoryBean">
         <property name="skipOnFirstAppliedRule" value="true"/>
         <property name="skipOnFirstFailedRule" value="true"/>
@@ -226,21 +262,10 @@
         </property>
     </bean>
     
-    <bean id="easyrulesbot.pombuilder" class="fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.service.PomBuilder">
-        <property name="mapping">
-            <map>
-                <entry key="mylutece:true" value="plugin-mylutece" />
-                <entry key="mylutecemodule:database" value="module-mylutece-database" />
-                <entry key="mylutecemodule:openam" value="module-mylutece-openam" />
-                <entry key="mylutecemodule:cas" value="module-mylutece-cas" />
-                <entry key="avatar:true" value="plugin-avatar" />
-                <entry key="avatarserver:true" value="plugin-avatarserver" />
-                <entry key="form:true" value="plugin-form" />
-            </map>
-        </property>
-    </bean>
     
+    -->
     <!-- ##############        Bot        ##############-->
+    <!--
     <bean id="easyrulesbot.bot.siteBuilder" class="fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.business.SiteBuilderBot">
         <property name="key" value="lutecesitebuilder" />
         <property name="nameI18nKey" value="module.easyrulesbot.sitebuilder.bot.lutecesitebuilder.name" />
@@ -261,4 +286,5 @@
         </property>
         <property name="pomBuilder" ref="easyrulesbot.pombuilder"/>
     </bean>
+    -->
 </beans>

@@ -1,6 +1,10 @@
 [database]
-1
+database
+
 [openam]
-2         
+openam
+OpenAM
+  
 [cas]
-3
+CAS
+cas

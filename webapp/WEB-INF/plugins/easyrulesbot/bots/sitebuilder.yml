@@ -1,0 +1,82 @@
+## Site builder bot 
+--- 
+name: Site Builder (YAML)
+key: sitebuilder
+description: Bot de création d'un site Lutece
+language: fr
+welcomeMessage: Bonjour !
+avatarUrl: images/skin/plugins/easyrulesbot/bot-avatar.png
+standalone: false
+
+filters:
+    -   filter: INSULT
+    -   filter: THANK
+    -   filter: LAUGH
+
+rules:
+    -   rule: Greetings
+        description: Salue l'utilisateur et lui demande son prénom
+        priority: 0
+        message: Bonjour, quel est votre nom ?
+        dataKey: user_firstname
+        processor: INPUT_STRING
+        conditions:
+        -   condition: UNDEFINED_DATA_KEY
+        responseComment: Bonjour {user_firstname} ! Je vais vous aider à construire votre site LUTECE.
+
+    -   rule: Mylutece
+        description: Questionne l'utilisateur sur l'authentification du site
+        priority: 10
+        message: Souhaitez-vous que tout ou partie du site soit soumis à authentification ?
+        dataKey: mylutece
+        processor: YES_NO
+        conditions:
+        -   condition: UNDEFINED_DATA_KEY
+        responseComment: "<#if mylutece='true'>Nous allons maintenant choisir le type d'authentification.</#if>"
+  
+    -   rule: MyLuteceModule
+        priority: 11
+        message: Voici les choix possibles 
+        buttons:
+        -   title: OpenAM
+            value: openam
+        -   title: CAS
+            value: cas
+        -   title: Appelle moi
+            value: 0143476411
+            type: phonenumber
+        dataKey: mylutecemodule
+        processor: MYLUTECE_MODULE
+        conditions:
+        -   condition: UNDEFINED_DATA_KEY
+        -   condition: MYLUTECE
+        responseComment: Bon choix
+    
+    -   rule: SendMail
+        priority: 90
+        description: Demande à l'utilisateur si il souhaite un envoi par mail
+        message: Souhaitez-vous recevoir le fichier pom.xml par mail ?
+        dataKey: sendbymail
+        processor: YES_NO
+        conditions:
+        -   condition: UNDEFINED_DATA_KEY
+        
+    -   rule: GetEmail
+        priority: 91
+        description: Demande l'email de l'utilisateur
+        message: Quelle est votre adresse email ?
+        dataKey: user_email
+        processor: INPUT_EMAIL
+        conditions:
+        -   condition: UNDEFINED_DATA_KEY
+
+    -   rule: BuildSendPom
+        priority: 92
+        description: Build and send POM file
+        message: Etes-vous prêt pour l'envoi du fichier
+        dataKey: done
+        processor: BUILD_AND_SEND_POM
+        conditions:
+        -   condition: UNDEFINED_DATA_KEY
+        
+  
