@@ -9,6 +9,7 @@ avatarUrl: images/skin/plugins/easyrulesbot/bot-avatar.png
 standalone: false
 
 filters:
+    -   filter: DEBUG
     -   filter: INSULT
     -   filter: THANK
     -   filter: LAUGH
@@ -21,7 +22,7 @@ rules:
         dataKey: user_firstname
         processor: INPUT_STRING
         conditions:
-        -   condition: UNDEFINED_DATA_KEY
+        -   condition: DATAKEY_MISSING
         responseComment: Bonjour {user_firstname} ! Je vais vous aider à construire votre site LUTECE.
 
     -   rule: Mylutece
@@ -31,7 +32,7 @@ rules:
         dataKey: mylutece
         processor: YES_NO
         conditions:
-        -   condition: UNDEFINED_DATA_KEY
+        -   condition: DATAKEY_MISSING
         responseComment: "<#if mylutece='true'>Nous allons maintenant choisir le type d'authentification.</#if>"
   
     -   rule: MyLuteceModule
@@ -43,13 +44,16 @@ rules:
         -   title: CAS
             value: cas
         -   title: Appelle moi
-            value: 0143476411
+            value: 0606060606
             type: phonenumber
         dataKey: mylutecemodule
         processor: MYLUTECE_MODULE
         conditions:
-        -   condition: UNDEFINED_DATA_KEY
-        -   condition: MYLUTECE
+        -   condition: DATAKEY_MISSING
+        -   condition: DATAKEY_VALUE
+            parameters: 
+            - mylutece
+            - true
         responseComment: Bon choix
     
     -   rule: SendMail
@@ -59,7 +63,7 @@ rules:
         dataKey: sendbymail
         processor: YES_NO
         conditions:
-        -   condition: UNDEFINED_DATA_KEY
+        -   condition: DATAKEY_MISSING
         
     -   rule: GetEmail
         priority: 91
@@ -68,7 +72,8 @@ rules:
         dataKey: user_email
         processor: INPUT_EMAIL
         conditions:
-        -   condition: UNDEFINED_DATA_KEY
+        -   condition: DATAKEY_VALUE
+            parameters: [ sendbymail , true ]
 
     -   rule: BuildSendPom
         priority: 92
@@ -77,6 +82,24 @@ rules:
         dataKey: done
         processor: BUILD_AND_SEND_POM
         conditions:
-        -   condition: UNDEFINED_DATA_KEY
+        -   condition: DATAKEY_MISSING
+        -   condition: DATAKEY_VALUE
+            parameters: [ sendbymail , true ]
+        responseComment: Je vous ai envoyé le pom par mail !
+        
+    -   rule: Finalize
+        priority: 99
+        description: End of the session
+        message: Nous avons terminé. Voulez-vous recommencer une session ?
+        dataKey: restart
+        buttons:
+        -   title: Oui
+            value: reset
+        -   title: Non
+            value: no
+        processor: YES_NO
+        conditions:
+        -   condition: DATAKEY_MISSING
+        responseComment: Au revoir et à bientôt !
         
   

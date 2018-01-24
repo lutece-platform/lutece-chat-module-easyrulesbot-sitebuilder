@@ -35,7 +35,7 @@
 
 package fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.service;
 
-import fr.paris.lutece.plugins.easyrulesbot.business.BotExecutor;
+import fr.paris.lutece.plugins.easyrulesbot.service.bot.BotExecutor;
 import fr.paris.lutece.plugins.easyrulesbot.modules.sitebuilder.Constants;
 import fr.paris.lutece.plugins.easyrulesbot.service.response.exceptions.ResponseProcessingException;
 import fr.paris.lutece.plugins.easyrulesbot.service.response.processors.AbstractProcessor;
@@ -45,6 +45,7 @@ import fr.paris.lutece.portal.service.mail.MailService;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.portal.web.LocalVariables;
 import fr.paris.lutece.portal.web.l10n.LocaleService;
+import fr.paris.lutece.util.html.HtmlTemplate;
 import fr.paris.lutece.util.mail.FileAttachment;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +66,17 @@ public class PomBuilderProcessor extends AbstractProcessor implements ResponsePr
     private static final String PROPERTY_MAIL_MESSAGE = "module.easyrulesbot.sitebuilder.mail.message";
     private PomBuilder _pomBuilder;
     
+    /**
+     * Set the pom builder
+     * 
+     * @param pomBuilder
+     *            The pom builder
+     */
+    public void setPomBuilder( PomBuilder pomBuilder )
+    {
+        _pomBuilder = pomBuilder;
+    }
+
     /**
      * {@inheritDoc }
      */
