@@ -5,7 +5,7 @@ key: sitebuilder
 description: Bot de création d'un site Lutece
 language: fr
 welcomeMessage: Bonjour !
-avatarUrl: images/skin/plugins/easyrulesbot/bot-avatar.png
+avatarUrl: images/skin/plugins/easyrulesbot/modules/sitebuilder/sitebuilder-avatar.png
 standalone: false
 
 filters:
