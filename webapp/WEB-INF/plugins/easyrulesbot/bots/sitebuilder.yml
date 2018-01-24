@@ -72,6 +72,7 @@ rules:
         dataKey: user_email
         processor: INPUT_EMAIL
         conditions:
+        -   condition: DATAKEY_MISSING
         -   condition: DATAKEY_VALUE
             parameters: [ sendbymail , true ]
 
