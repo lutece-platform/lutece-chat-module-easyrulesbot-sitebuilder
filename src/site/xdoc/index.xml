@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+    <properties>
+        <title>Module EasyrulesBot SiteBuilder</title>
+    </properties>
+    <body>
+        <section name="Module EasyrulesBot SiteBuilder">
+            <p>
+                <img src="images/easyrulesbot.jpg" />
+            </p>
+            <subsection name="Introduction">
+                <p>
+                    This module provides a chat bot based on the 
+                    <a href="https://github.com/lutece-platform/lutece-chat-plugin-easyrulesbot" target="_blank" >EasyRules Chatbot Engine</a>.
+                </p>
+                <p>
+                    This chatbot helps the user to create a Lutece Site pom.xml.
+                </p>
+                <p>
+                    See the <a href="http://dev.lutece.paris.fr/incubator/jsp/site/Portal.jsp?page=chatbot">
+                    online demo </a>                     
+                </p>
+            </subsection>
+        </section>
+    </body>
+</document>
+

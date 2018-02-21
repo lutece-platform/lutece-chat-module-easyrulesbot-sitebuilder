@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+    <properties>
+        <title>Plugin easyrulesbot</title>
+    </properties>
+    <body>
+        <section name="Plugin easyrulesbot">
+            <p>
+                <img src="images/easyrulesbot.jpg" />
+            </p>
+            <subsection name="Introduction">
+                <p>
+                    Ce plugin propose un chatbot basé sur le moteur de règles 
+                    <a href="https://github.com/EasyRules/easyrules" target="_blank" >EasyRules</a>.
+                </p>
+                <p>
+                    Les bots peuvent être réalisés en définissant un jeu de règles dans un module séparé :
+                    <code>module-easyrulesbot-mybot</code>.
+                </p>
+                <p>
+                    Ce plugin utilise le <a href="https://github.com/lutece-platform/lutece-chat-plugin-chatbot" target="_blank">Plugin Chatbot</a>
+                    comme interface utilisateur de conversation.
+                </p>
+                <p>
+                    Regarder la <a href="http://dev.lutece.paris.fr/incubator/jsp/site/Portal.jsp?page=chatbot">
+                    démonstration en ligne </a> d'un exemple de bot permettant de faire un pom.xml pour bâtir un site Lutece.
+                     
+                </p>
+            </subsection>
+        </section>
+        <section name="Configuration">
+            <p>
+                Toutes les règles doivent être définies dans un ficher YAML situé dans /WEB-INF/plugins/easyrulesbot/bots/. 
+            </p>
+            <subsection name="Response Processors">
+                <p>
+                    Des processeurs standards sont disponibles:
+                    <ul>
+                        <li>
+                            <b>InputStringResponseProcessor</b> : Lit une chaîne de caractères pour valoriser une datakey. 
+                        </li>
+                        <li>
+                            <b>MultipleValuesResponseProcessor</b> : Définit une datakey parmi plusieurs valeurs dont chacune est associée à une liste de termes. 
+                        </li>
+                    </ul>
+                </p>
+                
+            </subsection>
+        </section>
+        <section name="Usage">
+            <p>
+                For Front office bots :
+            </p>
+            <p>
+                <pre>
+  http://domain.com/context/jsp/site/Portal.jsp?page=chatbot
+                </pre>
+            </p>
+        </section>
+    </body>
+</document>
+
