@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" >
+
+    
+    
+    
+     
+    <!-- #############        Default response processors        ###########-->
+    <bean id="easyrulesbot.processor.inputString" class="fr.paris.lutece.plugins.easyrulesbot.service.response.processors.InputStringResponseProcessor" >
+        <property name="name" value="INPUT_STRING" />
+    </bean>
+
+    <bean id="easyrulesbot.processor.inputString.email" class="fr.paris.lutece.plugins.easyrulesbot.service.response.processors.InputStringResponseProcessor" >
+        <property name="name" value="INPUT_EMAIL" />
+        <property name="standardPattern" value="email" />
+        <property name="patternErrorMessageI18nKey" value="module.easyrulesbot.sitebuilder.message.invalidEmail" />
+    </bean>
+
+    <bean id="easyrulesbot.processor.yesNo" class="fr.paris.lutece.plugins.easyrulesbot.service.response.processors.MultipleValuesResponseProcessor" >
+        <property name="name" value="YES_NO" />
+        <property name="mutipleValuesMapFile" value="/WEB-INF/plugins/easyrulesbot/yesno.txt" />
+        <property name="invalidResponseMessageI18nKey" value="module.easyrulesbot.sitebuilder.processor.yesno.invalidResponse" />
+    </bean>
+    
+    
+       
+    <!-- ###############    Generic conditions      ################ -->
+    <bean id="easyrulesbot.condition.dataKeyValue" class="fr.paris.lutece.plugins.easyrulesbot.service.bot.rules.conditions.ConditionFactory">
+        <property name="name" value="DATAKEY_VALUE" />
+        <property name="className" value="fr.paris.lutece.plugins.easyrulesbot.service.bot.rules.conditions.DataValueCondition" />
+    </bean>    
+    <bean id="easyrulesbot.condition.dataKeyMissing" class="fr.paris.lutece.plugins.easyrulesbot.service.bot.rules.conditions.ConditionFactory">
+        <property name="name" value="DATAKEY_MISSING" />
+        <property name="className" value="fr.paris.lutece.plugins.easyrulesbot.service.bot.rules.conditions.DataMissingCondition" />
+    </bean>
+    
+    <!-- ################    Generic filters         ##################### -->
+    
+    <bean id="easyrulesbot.filter.debug" class="fr.paris.lutece.plugins.easyrulesbot.service.response.filters.DebugFilter" >
+        <property name="name" value="DEBUG" />
+    </bean>
+    
+    <bean id="easyrulesbot.filter.profanity" class="fr.paris.lutece.plugins.easyrulesbot.service.response.filters.StopOnWordFilter" >
+        <property name="name" value="INSULT" />
+        <property name="mapLocaleStopWordsFile">
+            <map>
+                <entry key="en" value="/WEB-INF/plugins/easyrulesbot/profanity-words.txt" />
+                <entry key="fr" value="/WEB-INF/plugins/easyrulesbot/profanity-words_fr.txt" />
+            </map>
+        </property>
+        <property name="mapLocaleResponseMessageFile">
+            <map>
+                <entry key="en" value="/WEB-INF/plugins/easyrulesbot/profanity-responses.txt" />
+                <entry key="fr" value="/WEB-INF/plugins/easyrulesbot/profanity-responses_fr.txt" />
+            </map>
+        </property>
+    </bean>
+    
+    <bean id="easyrulesbot.filter.thanksful" class="fr.paris.lutece.plugins.easyrulesbot.service.response.filters.StopOnWordFilter" >
+        <property name="name" value="THANK" />
+        <property name="listStopWords">
+            <list>
+                <value>Thanks</value>
+		<value>Thank you</value>
+		<value>Thx</value>
+		<value>Ty</value>
+                <value>merci</value>
+            </list>
+        </property>
+        <property name="mapLocaleResponseMessageFile">
+            <map>
+                <entry key="en" value="/WEB-INF/plugins/easyrulesbot/thankful-responses.txt" />
+                <entry key="fr" value="/WEB-INF/plugins/easyrulesbot/thankful-responses_fr.txt" />
+            </map>
+        </property>
+    </bean>
+    
+    <bean id="easyrulesbot.filter.laughing" class="fr.paris.lutece.plugins.easyrulesbot.service.response.filters.StopOnWordFilter" >
+        <property name="name" value="LAUGH" />
+        <property name="listStopWords">
+            <list>
+                <value>lol</value>
+                <value>lmao</value>
+                <value>rofl</value>
+                <value>mdr</value>
+                <value>ptdr</value>	
+            </list>
+        </property>
+        <property name="mapLocaleResponseMessageFile">
+            <map>
+                <entry key="en" value="/WEB-INF/plugins/easyrulesbot/laughfing-responses.txt" />
+                <entry key="fr" value="/WEB-INF/plugins/easyrulesbot/laughfing-responses_fr.txt" />
+            </map>
+        </property>
+    </bean>
+    
+
+</beans>

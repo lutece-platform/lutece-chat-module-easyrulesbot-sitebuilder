@@ -2,9 +2,9 @@
 --- 
 name: Site Builder (YAML)
 key: sitebuilder
-description: Bot de création d'un site Lutece
-language: fr
-welcomeMessage: Bonjour !
+description: Bot for creating a site builder
+language: en
+welcomeMessage: Hello !
 avatarUrl: images/skin/plugins/easyrulesbot/modules/sitebuilder/sitebuilder-avatar.png
 standalone: false
 
@@ -16,34 +16,34 @@ filters:
 
 rules:
     -   rule: Greetings
-        description: Salue l'utilisateur et lui demande son prénom
+        description: Greets the user and ask him his name
         priority: 0
-        message: Bonjour, quel est votre nom ?
+        message: Hello, what's your name ?
         dataKey: user_firstname
         processor: INPUT_STRING
         conditions:
         -   condition: DATAKEY_MISSING
-        responseComment: Bonjour {user_firstname} ! Je vais vous aider à construire votre site LUTECE.
+        responseComment: Hello {user_firstname} ! I will help you build your website LUTECE.
 
     -   rule: Mylutece
-        description: Questionne l'utilisateur sur l'authentification du site
+        description: Ask the user about the authentication of the site
         priority: 10
-        message: Souhaitez-vous que tout ou partie du site soit soumis à authentification ?
+        message: Do you want all or only part of the site to be authenticated?
         dataKey: mylutece
         processor: YES_NO
         conditions:
         -   condition: DATAKEY_MISSING
-        responseComment: "<#if mylutece='true'>Nous allons maintenant choisir le type d'authentification.</#if>"
+        responseComment: "<#if mylutece='true'>We will now choose the type of authentication.</#if>"
   
     -   rule: MyLuteceModule
         priority: 11
-        message: Voici les choix possibles 
+        message: Here are the possible choices
         buttons:
         -   title: OpenAM
             value: openam
         -   title: CAS
             value: cas
-        -   title: Appelle moi
+        -   title: Call me
             value: 0606060606
             type: phonenumber
         dataKey: mylutecemodule
@@ -54,12 +54,12 @@ rules:
             parameters: 
             - mylutece
             - true
-        responseComment: Bon choix
+        responseComment: Good choice
     
     -   rule: SendMail
         priority: 90
-        description: Demande à l'utilisateur si il souhaite un envoi par mail
-        message: Souhaitez-vous recevoir le fichier pom.xml par mail ?
+        description: Ask the user if he wants a mailing
+        message: Would you like to receive the pom.xml file by mail?
         dataKey: sendbymail
         processor: YES_NO
         conditions:
@@ -67,8 +67,8 @@ rules:
         
     -   rule: GetEmail
         priority: 91
-        description: Demande l'email de l'utilisateur
-        message: Quelle est votre adresse email ?
+        description: Request the user's email
+        message: What is your email address ?
         dataKey: user_email
         processor: INPUT_EMAIL
         conditions:
@@ -79,19 +79,19 @@ rules:
     -   rule: BuildSendPom
         priority: 92
         description: Build and send POM file
-        message: Etes-vous prêt pour l'envoi du fichier
+        message: Are you ready to receive the file
         dataKey: done
         processor: BUILD_AND_SEND_POM
         conditions:
         -   condition: DATAKEY_MISSING
         -   condition: DATAKEY_VALUE
             parameters: [ sendbymail , true ]
-        responseComment: Je vous ai envoyé le pom par mail !
+        responseComment: I sent you the pom by mail!
         
     -   rule: Finalize
         priority: 99
         description: End of the session
-        message: Nous avons terminé. Voulez-vous recommencer une session ?
+        message: We finished. Do you want to start a session again?
         dataKey: restart
         buttons:
         -   title: Oui
@@ -101,6 +101,6 @@ rules:
         processor: YES_NO
         conditions:
         -   condition: DATAKEY_MISSING
-        responseComment: Au revoir et à bientôt !
+        responseComment: Goodbye and see you soon !
         
   
