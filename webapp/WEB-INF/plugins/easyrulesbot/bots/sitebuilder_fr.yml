@@ -1,8 +1,8 @@
 ## Site builder bot 
 --- 
-name: Site Builder (YAML)
+name: Construction d'un site Lutece
 key: sitebuilder_fr
-description: Bot de création d'un site Lutece
+description: Ce bot vous assiste dans la création d'un fichier pom.xml pour construire votre site avec Maven
 language: fr
 welcomeMessage: Bonjour !
 avatarUrl: images/skin/plugins/easyrulesbot/modules/sitebuilder/sitebuilder-avatar.png
